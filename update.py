@@ -44,6 +44,8 @@ def main():
     markup = fh_xml.request(url)
     fh_xml.write(markup)
 
+    # Turn it into an object
+
     # Parse out the pieces we want.
 
     # Write those pieces to another file.
