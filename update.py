@@ -8,14 +8,33 @@ import re
 import os.path
 from FileWrapper import FileWrapper
 
-class Update:
-    """Updates the js file containing the five most-recent articles."""
+class ParseXml:
+    """Takes XML, turns it into something else."""
 
-    def __init__(self):
+    def __init__(self, fields, template):
+        """ ..."""
+        self.fields = self.set_fields(fields)
+        self.template = self.set_template(template)
+        self.output = ''
+
+    def set_fields(self):
+        """ Set the fields we're parsing out of each XML object item."""
         pass
 
+    def set_template(self):
+        """ Set the template file we're using for templating the XML output.
+        The fieldnames of the template should match the XML field and attribute
+        names. """
+        pass
 
-if __name__ == '__main__':
+    def write_item(self):
+        """ Marry the XML fields we're using to the template. Return a string."""
+        pass
+
+    
+
+def main():
+    """ What we execute when we execute from the command line."""
     slug = 'all'
     fh = FileWrapper('infinite-%s.js' % slug)
 
@@ -24,4 +43,13 @@ if __name__ == '__main__':
     url = 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/270501.xml'
     markup = fh_xml.request(url)
     fh_xml.write(markup)
-    
+
+    # Parse out the pieces we want.
+
+    # Write those pieces to another file.
+
+    # FTP that file to a production server.
+
+
+if __name__ == '__main__':
+    main()
