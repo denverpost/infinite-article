@@ -60,6 +60,10 @@ class ParseXml:
                 results += [result]
         return results
 
+    def write_xml(self):
+        """ Write each bit of the xml. """
+        pass
+
     def write_item(self):
         """ Marry the XML fields we're using to the template. Return a string."""
         pass
