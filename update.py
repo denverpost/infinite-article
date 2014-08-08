@@ -34,6 +34,32 @@ class ParseXml:
         names. """
         self.template = template
 
+    def parse_xml(self):
+        """ Parse out the fields we want from the markup."""
+        tree = ET.fromstring(self.markup)
+
+        results = []
+        # What's that './/' in the findall() command? I don't know, but I know it
+        # makes it possible to find child and subchild elements in an XML tree.
+        for field in self.fields:
+            items = tree.findall('.//%s' % field)
+            for item in items:
+                result = {}
+                for subfield in self.fields[field]:
+                    value = item.find('.//%s' % subfield).text
+                    if value:
+                        # We name the result field the value of subfield dict.
+                        # The subfield dict key is the name of the field in the
+                        # xml, and the key's value is the name of the field as
+                        # we're storing it here (and, eventually, writing to the file).
+                        # So, with a dict item such as
+                        #             'updateDate': 'date_updated',
+                        # the xml field name is 'updateDate', and the field name
+                        # we're writing is 'date_updated'.
+                        result[self.fields[field][subfield]] = value
+                results += [result]
+        return results
+
     def write_item(self):
         """ Marry the XML fields we're using to the template. Return a string."""
         pass
@@ -64,7 +90,7 @@ def main():
 
     # Turn it into an object
     fields = {
-        'article': {
+        'article': {    # This field name should be the same as the parent element.
             'cId': 'id',
             'launchDate': 'date_published',
             'updateDate': 'date_updated',
@@ -91,6 +117,7 @@ def main():
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
+    print parser.parse_xml()
 
 
     # Parse out the pieces we want.
