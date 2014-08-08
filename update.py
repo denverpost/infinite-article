@@ -57,16 +57,30 @@ class ParseXml:
                         # the xml field name is 'updateDate', and the field name
                         # we're writing is 'date_updated'.
                         result[self.fields[field][subfield]] = value
+                    else:
+                        result[self.fields[field][subfield]] = ''
                 results += [result]
+        self.results = results
         return results
 
     def write_xml(self):
         """ Write each bit of the xml. """
-        pass
+        content = ''
+        content = self.template['header']
+        for item in self.results:
+            content += self.write_item(item)
+        content += self.template['footer']
+        return content
 
-    def write_item(self):
+    def write_item(self, item):
         """ Marry the XML fields we're using to the template. Return a string."""
-        pass
+        content = self.template['item']
+        for field in item:
+            # The item is a dict.
+            # The dict's keys are the field names we're searching and replacing
+            # with the dict's values.
+            content = content.replace('{{%s}}' % field, item[field])
+        return content
 
     
 
@@ -121,7 +135,8 @@ def main():
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
-    print parser.parse_xml()
+    parser.parse_xml()
+    print parser.write_xml()
 
 
     # Parse out the pieces we want.
