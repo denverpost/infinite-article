@@ -6,7 +6,7 @@ import sys
 import string
 import re
 import os.path
-from FileWrapper import FileWrapper
+from filewrapper.FileWrapper import FileWrapper
 
 class ParseXml:
     """Takes XML, turns it into something else."""
