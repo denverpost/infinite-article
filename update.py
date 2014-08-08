@@ -49,6 +49,7 @@ def main():
     fh = FileWrapper('infinite-%s.js' % slug)
 
     # Get the XML
+    # We don't want to download the file every time while testing, thus, testing logic.
     fh_xml = FileWrapper('infinite-%s.xml' % slug)
     url = 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/270501.xml'
     if options.test == True:
@@ -59,20 +60,37 @@ def main():
         fh_xml.write(markup)
     else:
         markup = fh_xml.request(url)
-    fh_xml.write(markup)
+        fh_xml.write(markup)
 
     # Turn it into an object
     fields = {
-        'cId': 'id',
-        'launchDate': 'date_published',
-        'updateDate': 'date_updated',
-        'bylineEncoded': 'byline',
-        'headline': 'title',
-        'body': 'body',
-        'overline': 'overline',
-        'subHead': 'subtitle'
+        'article': {
+            'cId': 'id',
+            'launchDate': 'date_published',
+            'updateDate': 'date_updated',
+            'bylineEncoded': 'byline',
+            'headline': 'title',
+            'body': 'body',
+            'overline': 'overline',
+            'subHead': 'subtitle'
+        }
     }
-
+    template = {
+        'header': 'var ar = new Array(',
+        'item' : """
+    {
+        overline: '{{overline}}',
+        title: '{{title}}',
+        body: '{{body}}',
+        byline: '{{byline}},
+        path: { prefix: '/news/ci_', id: {{id}}, suffix: '' },
+        date_published: '{{date_published}}',
+        date_updated: '{{date_updated}}'
+    }
+    """,
+        'footer': ');'
+    }
+    parser = ParseXml(markup, fields, template)
 
 
     # Parse out the pieces we want.
