@@ -95,7 +95,7 @@ def main():
     # Get the XML
     # We don't want to download the file every time while testing, thus, testing logic.
     fh_xml = FileWrapper('infinite-%s.xml' % slug)
-    url = 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/270501.xml'
+    url = 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'
     if options.test == True:
         if fh_xml.exists() == True:
             markup = fh_xml.read()
@@ -110,9 +110,10 @@ def main():
     fields = {
         'article': {    # This field name should be the same as the parent element.
             'cId': 'id',
+            'seoDescriptiveText': 'seo_url_suffix',
             'launchDate': 'date_published',
             'updateDate': 'date_updated',
-            'bylineEncoded': 'byline',
+            'byline': 'byline',
             'headline': 'title',
             'body': 'body',
             'overline': 'overline',
@@ -127,7 +128,7 @@ def main():
         title: '{{title}}',
         body: '{{body}}',
         byline: '{{byline}},
-        path: { prefix: '/news/ci_', id: {{id}}, suffix: '' },
+        path: { prefix: '/news/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
         date_published: '{{date_published}}',
         date_updated: '{{date_updated}}'
     }
