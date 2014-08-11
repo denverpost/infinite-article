@@ -135,13 +135,13 @@ def main():
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
-    parser.parse_xml()
-    print parser.write_xml()
-
-
     # Parse out the pieces we want.
+    parser.parse_xml()
+    output = parser.write_xml()
 
     # Write those pieces to another file.
+    fh = FileWrapper('articles-%s.js' % slug)
+    fh.write(output)
 
     # FTP that file to a production server.
 
