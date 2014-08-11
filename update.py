@@ -79,7 +79,7 @@ class ParseXml:
             # The item is a dict.
             # The dict's keys are the field names we're searching and replacing
             # with the dict's values.
-            content = content.replace('{{%s}}' % field, item[field])
+            content = content.replace('{{%s}}' % field, item[field].replace("'", "\\'"))
         return content
 
     
