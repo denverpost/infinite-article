@@ -67,8 +67,15 @@ class ParseXml:
         """ Write each bit of the xml. """
         content = ''
         content = self.template['header']
+        looplength = len(self.results)
+        i = 0
         for item in self.results:
+            i += 1
             content += self.write_item(item)
+            # If it's not the last item in the list, add a comma.
+            # *** We need a way to configure this.
+            if i < looplength:
+                content += ','
         content += self.template['footer']
         return content
 
@@ -131,8 +138,7 @@ def main():
         path: { prefix: '/news/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
         date_published: '{{date_published}}',
         date_updated: '{{date_updated}}'
-    }
-    """,
+    }""",
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
