@@ -127,7 +127,7 @@ def main():
         overline: '{{overline}}',
         title: '{{title}}',
         body: '{{body}}',
-        byline: '{{byline}},
+        byline: '{{byline}}',
         path: { prefix: '/news/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
         date_published: '{{date_published}}',
         date_updated: '{{date_updated}}'
