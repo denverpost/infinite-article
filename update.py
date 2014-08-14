@@ -9,6 +9,7 @@ import os.path
 import xml.etree.ElementTree as ET
 from optparse import OptionParser
 from filewrapper.FileWrapper import FileWrapper
+from ftpwrapper.FtpWrapper import FtpWrapper
 
 class ParseXml:
     """Takes XML, turns it into something else."""
