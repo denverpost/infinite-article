@@ -1,3 +1,6 @@
 [submodule "filewrapper"]
 	path = filewrapper
 	url = https://gist.github.com/584ee95db4b05ecb1ac5.git
+[submodule "ftpwrapper"]
+	path = ftpwrapper
+	url = git@gist.github.com:/f628b801f8310941e1b0.git
