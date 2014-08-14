@@ -36,7 +36,8 @@ class ParseXml:
         self.template = template
 
     def parse_xml(self):
-        """ Parse out the fields we want from the markup."""
+        """ Parse out the fields we want from the markup. Returns a list of objects.
+            """
         tree = ET.fromstring(self.markup)
 
         results = []
@@ -145,14 +146,26 @@ def main():
         byline: '{{byline}}',
         path: { prefix: '/news/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
         date_published: '{{date_published}}',
-        date_updated: '{{date_updated}}'
+        date_updated: '{{date_updated}}',
+        images: new Array({{image}})
     }""",
+        'image': """
+        {
+            caption: '{{caption}}',
+            credit: '{{credit}}',
+            url: '{{url}}',
+            height: {{height}},
+            width: 500
+        }"""
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
     # Parse out the pieces we want.
     parser.parse_xml()
     output = parser.write_xml()
+    
+    # For each article, scrape it from the site. That's the easiest way to get
+    # its related content, freeforms, packages, photos etc.
 
     # Write those pieces to another file.
     fh = FileWrapper('articles-%s.js' % slug)
