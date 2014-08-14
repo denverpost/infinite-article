@@ -138,7 +138,7 @@ def main():
         title: '{{title}}',
         body: '{{body}}',
         byline: '{{byline}}',
-        path: { prefix: '/{{section_anchor}}/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
+        path: { prefix: '{{section_anchor}}/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
         date_published: '{{date_published}}',
         date_updated: '{{date_updated}}'
     }""",
