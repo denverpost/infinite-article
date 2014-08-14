@@ -144,13 +144,28 @@ def main():
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
+
     # Parse out the pieces we want.
     articles = parser.parse_xml()
     
     # For each article, scrape it from the site. That's the easiest way to get
     # its related content, freeforms, packages, photos etc.
+    i = 0
     for article in articles:
-        print article   
+        url = 'http://www.denverpost.com/ci_%s' % article['id']
+        fh = FileWrapper('article')
+        article = fh.request(url)
+        if article != '':
+            # Parse out everything between the articlePositionHeader and the 
+            # end of the articlePositionFooter div
+            pattern = '.*(<div class="articlePositionHeader">.*</div>)<span class="articleFooterLinks">'
+            regex = re.compile(pattern, re.MULTILINE|re.DOTALL)
+            r = regex.search(article)
+            regex.match(article)
+            body = r.groups()[0]
+            if body != '':
+                articles[i]['body'] = body
+            i += 1
 
     output = parser.write_xml()
 
