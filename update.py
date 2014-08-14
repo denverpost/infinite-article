@@ -125,7 +125,14 @@ def main():
             'headline': 'title',
             'body': 'body',
             'overline': 'overline',
-            'subHead': 'subtitle'
+            'subHead': 'subtitle',
+            'mediacount': '%mediacount%',
+            'image': {
+                'caption': 'caption',
+                'credit': 'credit',
+                'url.mediaSizeType=500': 'url',
+                'height.mediaSizeType=500': 'height'
+            }
         }
     }
     template = {
