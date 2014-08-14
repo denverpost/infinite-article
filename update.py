@@ -164,7 +164,8 @@ def main():
             regex.match(article)
             body = r.groups()[0]
             if body != '':
-                articles[i]['body'] = body
+                # Strip out the newline characters.
+                articles[i]['body'] = body.replace('\n', '')
             i += 1
 
     output = parser.write_xml()
