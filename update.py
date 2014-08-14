@@ -127,13 +127,6 @@ def main():
             'body': 'body',
             'overline': 'overline',
             'subHead': 'subtitle',
-            'mediacount': '%mediacount%',
-            'image': {
-                'caption': 'caption',
-                'credit': 'credit',
-                'url.mediaSizeType=500': 'url',
-                'height.mediaSizeType=500': 'height'
-            }
         }
     }
     template = {
@@ -146,26 +139,20 @@ def main():
         byline: '{{byline}}',
         path: { prefix: '/news/ci_', id: {{id}}, suffix: '{{seo_url_suffix}}' },
         date_published: '{{date_published}}',
-        date_updated: '{{date_updated}}',
-        images: new Array({{image}})
+        date_updated: '{{date_updated}}'
     }""",
-        'image': """
-        {
-            caption: '{{caption}}',
-            credit: '{{credit}}',
-            url: '{{url}}',
-            height: {{height}},
-            width: 500
-        }"""
         'footer': ');'
     }
     parser = ParseXml(markup, fields, template)
     # Parse out the pieces we want.
-    parser.parse_xml()
-    output = parser.write_xml()
+    articles = parser.parse_xml()
     
     # For each article, scrape it from the site. That's the easiest way to get
     # its related content, freeforms, packages, photos etc.
+    for article in articles:
+        print article   
+
+    output = parser.write_xml()
 
     # Write those pieces to another file.
     fh = FileWrapper('articles-%s.js' % slug)
