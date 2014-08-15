@@ -168,6 +168,8 @@ def main():
                 # Strip out any window.location redirects ala
                 # window.location.replace(\'http://blogs.denverpost.com/thespot/2014/08/15/cory-gardner-mark-udall-flooding/111439/\');
                 body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
+                # Kill any document.write's
+                body = re.sub("document\.write\(([^\)]+)\);", "", body)
                 # Strip out the newline characters.
                 articles[i]['body'] = body.replace('\n', '')
             i += 1
