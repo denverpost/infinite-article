@@ -165,6 +165,9 @@ def main():
             regex.match(article)
             body = r.groups()[0]
             if body != '':
+                # Strip out any window.location redirects ala
+                # window.location.replace(\'http://blogs.denverpost.com/thespot/2014/08/15/cory-gardner-mark-udall-flooding/111439/\');
+                body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
                 # Strip out the newline characters.
                 articles[i]['body'] = body.replace('\n', '')
             i += 1
