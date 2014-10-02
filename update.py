@@ -93,18 +93,18 @@ class ParseXml:
 
     
 
-def main():
+def main(pub, slug, url):
     """ What we execute when we execute from the command line."""
     parser = OptionParser()
     parser.add_option("-t", "--test", dest="test", action="store_true", default=False)
     (options, args) = parser.parse_args()
-    slug = 'all'
+    if slug == '':
+        slug = 'all'
     fh = FileWrapper('infinite-%s.js' % slug)
 
     # Get the XML
     # We don't want to download the file every time while testing, thus, testing logic.
     fh_xml = FileWrapper('infinite-%s.xml' % slug)
-    url = 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'
     if options.test == True:
         if fh_xml.exists() == True:
             markup = fh_xml.read()
@@ -194,4 +194,15 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    data = { 
+            'denverpost': [
+                ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
+                ('business', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259388.xml'),
+             ],
+    }
+    for pub in data:
+        print pub
+        for item in data[pub]:
+            slug = item[0]
+            url = item[1]
+            main(pub, slug, url)
