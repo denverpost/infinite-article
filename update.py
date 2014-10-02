@@ -198,6 +198,7 @@ if __name__ == '__main__':
             'denverpost': [
                 ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
                 ('business', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259388.xml'),
+                ('sports', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259398.xml'),
              ],
     }
     for pub in data:
