@@ -185,7 +185,7 @@ def main(pub, slug, url):
     output = parser.write_xml()
 
     # Write those pieces to another file.
-    fh = FileWrapper('articles-%s.js' % slug)
+    fh = FileWrapper('%s-%s.js' % (pub, slug))
     fh.write(output)
 
     # FTP that file to a production server.
