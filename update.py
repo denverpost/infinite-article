@@ -153,6 +153,7 @@ def main(pub, slug, url):
     # its related content, freeforms, packages, photos etc.
     i = 0
     for article in articles:
+        # It doesn't matter which domain we use here, every site's on NGPS and we're just scraping this for the body content.
         url = 'http://www.denverpost.com/ci_%s' % article['id']
         fh = FileWrapper('article')
         article = fh.request(url)
@@ -197,8 +198,12 @@ if __name__ == '__main__':
     data = { 
             'denverpost': [
                 ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
+                ('news', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/262301.xml'),
                 ('business', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259388.xml'),
                 ('sports', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259398.xml'),
+                ('style', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259401.xml'),
+                ('opinion', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259395.xml'),
+                ('entertainment', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259392.xml'),
              ],
     }
     for pub in data:
