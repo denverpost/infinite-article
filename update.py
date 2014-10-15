@@ -6,6 +6,7 @@ import sys
 import string
 import re
 import os.path
+from random import shuffle
 import xml.etree.ElementTree as ET
 from optparse import OptionParser
 from filewrapper.FileWrapper import FileWrapper
@@ -148,6 +149,7 @@ def main(pub, slug, url):
 
     # Parse out the pieces we want.
     articles = parser.parse_xml()
+    shuffle(articles)
     
     # For each article, scrape it from the site. That's the easiest way to get
     # its related content, freeforms, packages, photos etc.
