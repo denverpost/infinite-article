@@ -116,6 +116,10 @@ def main(pub, slug, url):
         markup = fh_xml.request(url)
         fh_xml.write(markup)
 
+    # If we have an Editor's Picks feed, we add a couple articles from there to the mix.
+    picks_xml = FileWrapper('infinite-%s.xml' % 'editors_picks')
+    picks_markup = fh_xml.read()
+
     # Turn it into an object
     fields = {
         'article': {    # This field name should be the same as the parent element.
@@ -199,6 +203,7 @@ def main(pub, slug, url):
 if __name__ == '__main__':
     data = { 
             'denverpost': [
+                ('editors_picks', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/307800.xml'),
                 ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
                 ('news', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/262301.xml'),
                 ('business', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259388.xml'),
