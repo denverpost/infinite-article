@@ -76,7 +76,6 @@ class ParseXml:
 
     def write_xml(self, results=None):
         """ Write each bit of the xml. """
-        content = ''
         content = self.template['header']
         looplength = len(self.results)
         i = 0
@@ -175,17 +174,17 @@ def main(pub, slug, url):
     evergreen_markup = evergreen_xml.read()
     evergreen_parser = ParseXml(evergreen_markup, fields, template)
     evergreen_articles = evergreen_parser.parse_xml()
+    shuffle(evergreen_articles)
     i = 0
     limit = 1
     for article in evergreen_articles:
-        if limit > 0 and i > limit:
+        if limit > 0 and i >= limit:
             continue
         body = parse_article(article)
         if body != '':
             evergreen_articles[i]['body'] = body
         i += 1
     limit = 0
-    shuffle(evergreen_articles)
 
     # For each article, scrape it from the site. That's the easiest way to get
     # its related content, freeforms, packages, photos etc.
