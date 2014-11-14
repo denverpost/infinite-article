@@ -36,6 +36,14 @@ class ParseXml:
         names. """
         self.template = template
 
+    def add_result(self, result):
+        """ Append an item to self.results. """
+        self.results += [result]
+
+    def shuffle_results(self):
+        """ Shuffles the results. """
+        shuffle(self.results)
+
     def parse_xml(self):
         """ Parse out the fields we want from the markup. Returns a list of objects.
             """
@@ -66,12 +74,14 @@ class ParseXml:
         self.results = results
         return results
 
-    def write_xml(self):
+    def write_xml(self, results=None):
         """ Write each bit of the xml. """
         content = ''
         content = self.template['header']
         looplength = len(self.results)
         i = 0
+        if results:
+            self.results = results
         for item in self.results:
             i += 1
             content += self.write_item(item)
@@ -102,6 +112,7 @@ def main(pub, slug, url):
     if slug == '':
         slug = 'all'
     fh = FileWrapper('infinite-%s.js' % slug)
+    limit = 0
 
     # Get the XML
     # We don't want to download the file every time while testing, thus, testing logic.
@@ -115,10 +126,6 @@ def main(pub, slug, url):
     else:
         markup = fh_xml.request(url)
         fh_xml.write(markup)
-
-    # If we have an Editor's Picks feed, we add a couple articles from there to the mix.
-    picks_xml = FileWrapper('infinite-%s.xml' % 'editors_picks')
-    picks_markup = fh_xml.read()
 
     # Turn it into an object
     fields = {
@@ -153,41 +160,48 @@ def main(pub, slug, url):
 
     # Parse out the pieces we want.
     articles = parser.parse_xml()
-    shuffle(articles)
     
+    # If we have an Editor's Picks feed, we add a couple articles from there to the mix.
+    """
+    picks_xml = FileWrapper('infinite-%s.xml' % 'editors_picks')
+    picks_markup = picks_xml.read()
+    picks_parser = ParseXml(picks_markup, fields, template)
+    picks_articles = picks_parser.parse_xml()
+    shuffle(picks_articles)
+    """
+
+    # Same for evergreen
+    evergreen_xml = FileWrapper('infinite-%s.xml' % 'evergreen')
+    evergreen_markup = evergreen_xml.read()
+    evergreen_parser = ParseXml(evergreen_markup, fields, template)
+    evergreen_articles = evergreen_parser.parse_xml()
+    i = 0
+    limit = 1
+    for article in evergreen_articles:
+        if limit > 0 and i > limit:
+            continue
+        body = parse_article(article)
+        if body != '':
+            evergreen_articles[i]['body'] = body
+        i += 1
+    limit = 0
+    shuffle(evergreen_articles)
+
     # For each article, scrape it from the site. That's the easiest way to get
     # its related content, freeforms, packages, photos etc.
     i = 0
     for article in articles:
-        # It doesn't matter which domain we use here, every site's on NGPS and we're just scraping this for the body content.
-        url = 'http://www.denverpost.com/ci_%s' % article['id']
-        fh = FileWrapper('article')
-        article = fh.request(url)
-        if article != '':
-            # Parse out everything between the articlePositionHeader and the 
-            # end of the articlePositionFooter div
-            pattern = '.*(<div class="articlePositionHeader">.*</div>)<span class="articleFooterLinks">'
-            regex = re.compile(pattern, re.MULTILINE|re.DOTALL)
-            r = regex.search(article)
-            regex.match(article)
-            body = r.groups()[0]
-            if body != '':
-                # Strip out any window.location redirects ala
-                # window.location.replace(\'http://blogs.denverpost.com/thespot/2014/08/15/cory-gardner-mark-udall-flooding/111439/\');
-                body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
+        if limit > 0 and i > limit:
+            continue
+        body = parse_article(article)
+        if body != '':
+            articles[i]['body'] = body
+        i += 1
 
-                # Kill any document.write's
-                body = re.sub("document\.write\(([^\)]+)\);", "", body)
-
-                # Strip out the newline characters.
-                body = body.replace('\n', '')
-
-                # Remove the in-article ads
-                body = re.sub("<div id='dfp-EMBEDDED'>.*<!-- End DFP Premium ad uniqueId: dfp-EMBEDDED -->", "", body)
-
-                articles[i]['body'] = body
-            i += 1
-
+    # Add an evergreen article and a editor's pick.
+    #parser.add_result(picks_articles[0])
+    parser.add_result(evergreen_articles[0])
+    parser.shuffle_results()
     output = parser.write_xml()
 
     # Write those pieces to another file.
@@ -200,10 +214,43 @@ def main(pub, slug, url):
         ftz.ftp_file('%s-%s.js' % (pub, slug))
 
 
+def parse_article(article):
+    """ Get article fields not available in the XML field.
+        """
+    # It doesn't matter which domain we use here, every site's on NGPS and we're just scraping this for the body content.
+    url = 'http://www.denverpost.com/ci_%s' % article['id']
+    fh = FileWrapper('article')
+    article_markup = fh.request(url)
+    if article_markup != '':
+        # Parse out everything between the articlePositionHeader and the 
+        # end of the articlePositionFooter div
+        pattern = '.*(<div class="articlePositionHeader">.*</div>)<span class="articleFooterLinks">'
+        regex = re.compile(pattern, re.MULTILINE|re.DOTALL)
+        r = regex.search(article_markup)
+        regex.match(article_markup)
+        body = r.groups()[0]
+        if body != '':
+            # Strip out any window.location redirects ala
+            # window.location.replace(\'http://blogs.denverpost.com/thespot/2014/08/15/cory-gardner-mark-udall-flooding/111439/\');
+            body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
+
+            # Kill any document.write's
+            body = re.sub("document\.write\(([^\)]+)\);", "", body)
+
+            # Strip out the newline characters.
+            body = body.replace('\n', '')
+
+            # Remove the in-article ads
+            body = re.sub("<div id='dfp-EMBEDDED'>.*<!-- End DFP Premium ad uniqueId: dfp-EMBEDDED -->", "", body)
+
+        return body
+    return ''
+
 if __name__ == '__main__':
     data = { 
             'denverpost': [
                 ('editors_picks', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/307800.xml'),
+                ('evergreen', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/308300.xml'),
                 ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
                 ('news', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/262301.xml'),
                 ('business', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259388.xml'),
