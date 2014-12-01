@@ -252,7 +252,7 @@ if __name__ == '__main__':
     data = { 
             'denverpost': [
                 ('editors_picks', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/307800.xml'),
-                ('evergreen', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/308300.xml'),
+                #('evergreen', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/308300.xml'),
                 ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
                 ('news', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/262301.xml'),
                 ('business', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259388.xml'),
@@ -261,6 +261,15 @@ if __name__ == '__main__':
                 ('opinion', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259395.xml'),
                 ('entertainment', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/259392.xml'),
              ],
+            'mercurynews': [
+                ('all', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/262711.xml'),
+                ('business', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/269113.xml'),
+                ('sports', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/269105.xml'),
+                ('entertainment', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/269108.xml'),
+                ('lifestyles', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/269106.xml'),
+                ('49ers', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/262706.xml'),
+                ('giants', 'http://feeds.mercurynews.com/mngi/rss/CustomRssServlet/568/265052.xml'),
+            ]
     }
     for pub in data:
         print pub
