@@ -17,10 +17,12 @@
         <script>
 
 var properties = {
-    'denverpost': '/8013/denverpost.com'
+    'denverpost': '/8013/denverpost.com',
+    'mercurynews': '/8013/mercurynews.com'
 };
 var property = 'denverpost';
 
+// This will continue to work as long as there is only one parameter passed.
 var params = location.search;
 if ( params.length > 0 ) property = params.split('property=')[1];
 
