@@ -126,6 +126,9 @@ def main(pub, slug, url):
         markup = fh_xml.request(url)
         fh_xml.write(markup)
 
+    if slug == 'evergreen' or slug == 'editors_picks':
+        return False
+
     # Turn it into an object
     fields = {
         'article': {    # This field name should be the same as the parent element.
