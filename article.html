@@ -22,8 +22,6 @@
 // the "base" being halfway down the related-articles div.
 // If someone has clicked the comments tab, we don't load the next article.
 
-//if ( document.location.hash == '#infinite' || /news|nationworld|politics|obamacare|election|legislature|crime|marijuana|religion|stockshow|traffic|weather|education|health|environment|wildfires/i.exec(check_href )  || /business|aerospace|airlines|economy|energy|foodretail|technology|telecom|tourism/i.exec(check_href)   || /sports|broncos|avalanche|nuggets|rockies|rapids|superbowl|colleges|olympics|preps|outdoors|motorsports|cycling|skiing\//i.exec(check_href) || /opinion|editorials|perspective/i.exec(check_href) || /style|fashion|food|fitness|homegarden|petnews|smart|travel/i.exec(check_href) || /comedy|art|theater|television|videogames/i.exec(check_href) ) {
-
 var inf_config = {
     property: 'denverpost',
     tid: 'dpArticleBottom',
@@ -34,7 +32,7 @@ var inf_config = {
 };
 
 // Load the infinite-article object
-script = document.createElement('script');
+var script = document.createElement('script');
 script.type = 'text/javascript';
 if ( document.location.hash == '#dev' )
 {
@@ -56,7 +54,7 @@ else if ( /comedy|art|theater|television|videogames/i.exec(check_href) ) inf_sec
 else if ( /style|fashion|food|fitness|homegarden|petnews|smart|travel/i.exec(check_href) ) inf_section = 'style';
 else if ( /sports|broncos|avalanche|hochman|paige|nuggets|rockies|rapids|superbowl|colleges|olympics|preps|outdoors|motorsports|cycling|skiing/i.exec(check_href) ) inf_section = 'sports';
 
-script = document.createElement('script');
+var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = 'http://extras.denverpost.com/cache/article/denverpost-' + inf_section + '.js';
 $('head')[0].appendChild(script);
@@ -64,7 +62,7 @@ $('head')[0].appendChild(script);
 // Methods for infinite scroll on articles
 window.onload = function()
 {
-    ar.shuffle();
+    inf_config['articles'] = ar.shuffle();
 
     // Update inf with the values we've set in inf_config
     if ( typeof inf_config !== 'undefined' )
