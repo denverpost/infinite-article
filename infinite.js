@@ -98,7 +98,6 @@ var inf = {
         var omni = $('#wait').html();
         title = new RegExp(this.escape_regex(this.original_article.title), 'gi');
         id = new RegExp(this.original_article.id, 'gi');
-        console.log(title, id, this.original_article);
 
         var new_omni = omni.replace(title, new_title);
         new_omni = new_omni.replace(id, new_id);
