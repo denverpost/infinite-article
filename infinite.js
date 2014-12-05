@@ -206,7 +206,7 @@ var inf = {
 
         if ( this.in_dev == 1 )
         {
-            console.log(this.tid, "\nNext Checkpoints (bottom, top):", this.checkpoint.bottom, this.checkpoint.top "\nCurrent top scroll position:", this.get_scroll(), "\nWe're on article", this.article_position, "and have loaded", this.article_count, "articles, out of", this.articles.length, "total articles.\nCurrent checkpoints: ", this.checkpoint, this.checkpoints); 
+            console.log(this.tid, "\nNext Checkpoints (bottom, top):", this.checkpoint.bottom, this.checkpoint.top, "\nCurrent top scroll position:", this.get_scroll(), "\nWe're on article", this.article_position, "and have loaded", this.article_count, "articles, out of", this.articles.length, "total articles.\nCurrent checkpoints: ", this.checkpoint, this.checkpoints); 
             //console.log(this.article_position, this.articles);
             //console.log("Current article: ", this.article_position, "/", this.articles.length, this.articles[this.article_position].title, "\nLast article loaded:", this.article_count, "/" . this.articles.length, this.articles[this.article_count].title);
         }
