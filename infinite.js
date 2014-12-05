@@ -98,6 +98,7 @@ var inf = {
         var omni = $('#wait').html();
         title = new RegExp(this.escape_regex(this.original_article.title), 'gi');
         id = new RegExp(this.original_article.id, 'gi');
+        console.log(title, id, this.original_article);
 
         var new_omni = omni.replace(title, new_title);
         new_omni = new_omni.replace(id, new_id);
@@ -318,6 +319,7 @@ var inf = {
         // When we set this object value in the object itself it raises a 
         // "Uncaught TypeError: undefined is not a function" error
         this.original_article.id = this.get_article_id();
+        this.original_article.title = $('h1#articleTitle').text().replace(/"/g,"'");
 
         // Make sure the articles array doesn't have the original article, the one we're already on.
         // We start counting at 1 because 0 is the original article.
