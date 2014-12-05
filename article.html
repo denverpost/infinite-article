@@ -43,7 +43,7 @@ else
 {
     script.src = 'http://extras.denverpost.com/app/infinite/infinite.js' + cachebuster;
 }
-$('head')[0].appendChild(script);
+if ( document.location.hash !== '#noscroll' ) $('head')[0].appendChild(script);
 
 
 // &&& PROPERTY-SPECIFIC
@@ -58,7 +58,7 @@ else if ( /sports|broncos|avalanche|hochman|paige|nuggets|rockies|rapids|superbo
 var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = 'http://extras.denverpost.com/cache/article/denverpost-' + inf_section + '.js';
-$('head')[0].appendChild(script);
+if ( document.location.hash !== '#noscroll' ) $('head')[0].appendChild(script);
 
 window.onload = function()
 {
@@ -76,12 +76,15 @@ window.onload = function()
         }
     }
 
-    inf.init();
-    inf.checkpoints[0].bottom = inf.get_top();
-    $(window).scroll(inf, function() 
-    { 
-        inf.check_scroll();
-    });
+    if ( document.location.hash !== '#noscroll' )
+    {
+        inf.init();
+        inf.checkpoints[0].bottom = inf.get_top();
+        $(window).scroll(inf, function() 
+        { 
+            inf.check_scroll();
+        });
+    }
 }
 </script>
 

@@ -110,7 +110,7 @@ var inf = {
 
         // If we're scrolling back up to the top article, the type of path will be a string
         // consisting of the path that we need, so we just use that instead.
-        if ( typeof path !== 'object' ) var url = path;
+        if ( typeof path !== 'object' ) var url = '';
         else var url = path.prefix + path.id + '/' + path.suffix;
         return url;
     },
@@ -189,7 +189,7 @@ var inf = {
         $('#' + article_id + ' #articleDate').show();
 
         if ( this.in_dev == 1 ) console.log("ARTICLE LOADED");
-        this.is_loading = 0;
+        this.is_loading = 1;
         return 1;
 
     },
