@@ -173,6 +173,7 @@ def main(pub, slug, url):
     """
 
     # Same for evergreen
+    """
     evergreen_xml = FileWrapper('infinite-%s.xml' % 'evergreen')
     evergreen_markup = evergreen_xml.read()
     evergreen_parser = ParseXml(evergreen_markup, fields, template)
@@ -188,6 +189,7 @@ def main(pub, slug, url):
             evergreen_articles[i]['body'] = body
         i += 1
     limit = 0
+    """
 
     # For each article, scrape it from the site. That's the easiest way to get
     # its related content, freeforms, packages, photos etc.
@@ -202,7 +204,7 @@ def main(pub, slug, url):
 
     # Add an evergreen article and a editor's pick.
     #parser.add_result(picks_articles[0])
-    parser.add_result(evergreen_articles[0])
+    #parser.add_result(evergreen_articles[0])
     parser.shuffle_results()
     output = parser.write_xml()
 
@@ -251,7 +253,7 @@ def parse_article(article):
 if __name__ == '__main__':
     data = { 
             'denverpost': [
-                ('editors_picks', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/307800.xml'),
+                #('editors_picks', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/307800.xml'),
                 #('evergreen', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/308300.xml'),
                 ('all', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/301000.xml'),
                 ('news', 'http://rss.denverpost.com/mngi/rss/CustomRssServlet/36/262301.xml'),
