@@ -89,7 +89,6 @@ var inf = {
     },
     escape_regex: function(value)
     {
-        return value;
         return value.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
     load_omniture: function load_omniture(new_title, new_id)
@@ -143,8 +142,8 @@ var inf = {
         }
         if ( this.ad_slot_id % 2 == 0 ) 
         {
-            ad_params.query = '?ad=tall';
-            ad_params.height = '600';
+            //ad_params.query = '?ad=tall';
+            //ad_params.height = '600';
         }
         jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/ad/ad.html" + ad_params.query + "' seamless scrolling='no' width='300' height='" + ad_params.height + "'></iframe>");
         jQuery("#" + slot_id).css({'top': this.checkpoint.bottom + 'px', 'position': 'absolute'});
@@ -158,38 +157,48 @@ var inf = {
             //this.article_count -= 1;
             return false;
         }
-        if ( this.is_loading == 1 ) return false;
+        if ( this.is_loading == 1 )
+        {
+            if ( this.in_dev == 1 ) console.log("ARTICLE ALREADY LOADING, EXITING load_article()");
+            return false;
+        }
 
         if ( this.in_dev == 1 ) console.log("NEW ARTICLE LOADING: ", this.article_count);
         this.is_loading = 1;
-        var article_id = 'article0' + this['article_count'];
-        var the_article = this.articles[this['article_count']];
+        try
+        {
+            var article_id = 'article0' + this['article_count'];
+            var the_article = this.articles[this['article_count']];
 
-        $('#' + this['tid']).after('<div style="margin-bottom:250px;" class="next-article articleBox" id="' + article_id + '"></div>');
-        //$('#' + this['tid']).remove();
-        $('#' + article_id).html(this['article_skeleton']);
+            $('#' + this['tid']).after('<div style="margin-bottom:250px;" class="next-article articleBox" id="' + article_id + '"></div>');
+            //$('#' + this['tid']).remove();
+            $('#' + article_id).html(this['article_skeleton']);
 
-        // The dates take some finessing, so we hide them until we're ready.
-        $('#' + article_id + ' #articleDate').hide();
-        var current_year = new Date().getFullYear();
+            // The dates take some finessing, so we hide them until we're ready.
+            $('#' + article_id + ' #articleDate').hide();
+            var current_year = new Date().getFullYear();
 
-        // Replace the articles in the skeleton article with actual content
-        $('#' + article_id + ' #articleOverline').text(the_article.overline);
-        $('#' + article_id + ' #articleTitle').text(the_article.title);
-        $('#' + article_id + ' #articleByline i').html(the_article.byline);
-        $('#' + article_id + ' #date_published').text(the_article.date_published.replace(current_year, ''));
-        $('#' + article_id + ' #dateUpdated span').text(the_article.date_updated.replace(current_year, ''));
-        $('#' + article_id + ' .shareLink').html('<a href="' + this.build_url(the_article.path) + '#articleOverline">Share this article</a>');
-        $('#' + article_id + ' .commentLink').html('<a href="' + this.build_url(the_article.path) + '#disqus_thread">Comment / read comments on this article</a>');
+            // Replace the articles in the skeleton article with actual content
+            $('#' + article_id + ' #articleOverline').text(the_article.overline);
+            $('#' + article_id + ' #articleTitle').text(the_article.title);
+            $('#' + article_id + ' #articleByline i').html(the_article.byline);
+            $('#' + article_id + ' #date_published').text(the_article.date_published.replace(current_year, ''));
+            $('#' + article_id + ' #dateUpdated span').text(the_article.date_updated.replace(current_year, ''));
+            $('#' + article_id + ' .shareLink').html('<a href="' + this.build_url(the_article.path) + '#articleOverline">Share this article</a>');
+            $('#' + article_id + ' .commentLink').html('<a href="' + this.build_url(the_article.path) + '#disqus_thread">Comment / read comments on this article</a>');
 
-        $('#' + article_id + ' #articleBodyWrapper').prepend(the_article.body);
+            $('#' + article_id + ' #articleBodyWrapper').prepend(the_article.body);
 
-        if ( the_article.date_updated == '' ) $('#' + article_id + ' #dateUpdated').hide();
-        else $('#' + article_id + ' #dateUpdated').show();
-        $('#' + article_id + ' #articleDate').show();
-
+            if ( the_article.date_updated == '' ) $('#' + article_id + ' #dateUpdated').hide();
+            else $('#' + article_id + ' #dateUpdated').show();
+            $('#' + article_id + ' #articleDate').show();
+        }
+        catch (e)
+        {
+            if ( this.in_dev == 1 ) console.log("ERROR: ", e);
+        }
         if ( this.in_dev == 1 ) console.log("ARTICLE LOADED");
-        this.is_loading = 1;
+        this.is_loading = 0;
         return 1;
 
     },
@@ -206,7 +215,7 @@ var inf = {
 
         if ( this.in_dev == 1 )
         {
-            console.log(this.tid, "\nNext Checkpoints (bottom, top):", this.checkpoint.bottom, this.checkpoint.top, "\nCurrent top scroll position:", this.get_scroll(), "\nWe're on article", this.article_position, "and have loaded", this.article_count, "articles, out of", this.articles.length, "total articles.\nCurrent checkpoints: ", this.checkpoint, this.checkpoints); 
+            console.log(this.tid, "\nNext Checkpoints (bottom, top):", this.checkpoint.bottom, this.checkpoint.top, "\nCurrent top scroll position:", this.get_scroll(), "\nWe're on article", this.article_position, "and have loaded", this.article_count, "articles, out of", this.articles.length, "total articles.\nCurrent checkpoints: ", this.checkpoint, this.checkpoints, "\nthis.is_loading: ", this.is_loading); 
             //console.log(this.article_position, this.articles);
             //console.log("Current article: ", this.article_position, "/", this.articles.length, this.articles[this.article_position].title, "\nLast article loaded:", this.article_count, "/" . this.articles.length, this.articles[this.article_count].title);
         }

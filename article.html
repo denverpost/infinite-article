@@ -23,7 +23,7 @@
 
 var cachebuster = '?date=201412';
 var inf_config = {
-    property: 'denverpost',
+    property: 'mercurynews',
     tid: 'dpArticleBottom',
     reload_chartbeat: 1,// Future-proofing
     reload_outbrain: 0, // Future-proofing
@@ -82,8 +82,20 @@ window.onload = function()
         inf.checkpoints[0].bottom = inf.get_top();
         $(window).scroll(inf, function() 
         { 
-            inf.check_scroll();
+            run_on_scroll_interval();
         });
+        var did_scroll = 0;
+        function run_on_scroll_interval() { did_scroll = 1; }
+        setInterval(function()
+        {
+            if ( did_scroll == 1 )
+            {
+                did_scroll = 0;
+                //console.log("DID SCROLL");
+                inf.check_scroll();
+            }
+            //else console.log("DIDNT SCROLL");
+        }, 500);
     }
 }
 </script>
@@ -93,8 +105,6 @@ window.onload = function()
 
 <!-- Press + -->
 <script type="text/javascript" src="http://extras.mnginteractive.com/live/js/JOL/denverpostPressPlus.js"></script>
-<!-- NDN video -->
-<script type="text/javascript" async src="http://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
 <!--DTM Staging-->
 <script src="//assets.adobedtm.com/891d1ce5446bbce2687a12c1b724985a8b1df83a/satelliteLib-24d7d2c76ffad40ec94f85cea77bc05078ac3b66-staging.js"></script>
 <meta property="twitter:app:name:iphone" content="Denver Post" />
@@ -820,31 +830,6 @@ if ( document.getElementById('expiredArticleMsgId')  ) top.location.replace('htt
 			</div>
 
 			<script type="text/javascript">
-			$('#articleDate').append('<span style="float:right;" id="commentsCurrent"><a href="' + document.URL + '#disqus_thread" data-disqus-identifier="' + articleId + '" onclick="dpShowOtherTabTop(\'#dpArticleCommentingDump\')"></a></span>');
-			var disqus_shortname = 'dfm-denverpost';
-			var disqus_identifier = articleId;
-			if ($('#commentsCurrent').html().length > 0) {
-			    jQuery.ajax({
-			      type: 'GET',
-			      url: '//dfm-denverpost.disqus.com/count.js',
-			      dataType: 'script',
-			      cache: false
-			    });
-			    jQuery.ajax({
-			      type: 'GET',
-			      url: '//dfm-denverpost.disqus.com/embed.js',
-			      dataType: 'script',
-			      cache: false
-			    });
-			}
-            var CClooper = setInterval( function() {
-                var commentCountText = $('#commentsCurrent > a').html().split(' ');
-                if (commentCountText != '') {
-                    clearInterval(CClooper);
-                    var commentCountTabText = (commentCountText[0].toLowerCase() == 'add') ? "No comments" : ( (commentCountText[0] == 1) ? commentCountText[0] + ' comment' : commentCountText[0] + ' comments' );
-                    $('#commentsCurrentTab').html('(' + commentCountTabText + ')');
-                }
-            },100);
 			</script>
 
 			<!-- ##### End Disqus comments, comment count ##### -->
