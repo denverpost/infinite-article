@@ -21,7 +21,7 @@
 // New articles should appear at the base of every article,
 // the "base" being halfway down the related-articles div.
 
-var cachebuster = '?date=201412';
+var cachebuster = '?date=2014120913';
 var inf_config = {
     property: 'mercurynews',
     tid: 'dpArticleBottom',
@@ -91,10 +91,8 @@ window.onload = function()
             if ( did_scroll == 1 )
             {
                 did_scroll = 0;
-                //console.log("DID SCROLL");
                 inf.check_scroll();
             }
-            //else console.log("DIDNT SCROLL");
         }, 500);
     }
 }

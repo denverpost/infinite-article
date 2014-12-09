@@ -14,10 +14,10 @@ Array.prototype.shuffle = function() {
 }
 
 var inf = {
+    property: '',
     articles: new Array(),
     checkpoint: { top: 0, bottom: 0 },
     checkpoints: [{ top: 0, bottom: 0}],
-    // &&& PROPERTY-SPECIFIC
     tid: 'dpArticleBottom', // The 't' stands for 'trigger,' as in the id of the element that triggers the next article.
     article_count: 0,   // How many articles we've loaded
     article_position: 0,   // Which article we're on.
@@ -109,8 +109,15 @@ var inf = {
 
         // If we're scrolling back up to the top article, the type of path will be a string
         // consisting of the path that we need, so we just use that instead.
-        if ( typeof path !== 'object' ) var url = '';
-        else var url = path.prefix + path.id + '/' + path.suffix;
+        var url = '';
+        if ( typeof path === 'object' ) 
+        { 
+            url = path.prefix + path.id + '/' + path.suffix; 
+        }
+        else if ( typeof path === 'string' )
+        {
+            url = path;
+        }
         return url;
     },
     rewrite_url: function rewrite_url(path, new_title) 
@@ -138,11 +145,11 @@ var inf = {
         // Sometimes, say, every other time, let's load a large ad.
         var ad_params = {
             height: '250',
-            query: ''
+            query: '?property=' + this.property
         }
         if ( this.ad_slot_id % 2 == 0 ) 
         {
-            //ad_params.query = '?ad=tall';
+            //ad_params.query += '&amp;ad=tall';
             //ad_params.height = '600';
         }
         jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/ad/ad.html" + ad_params.query + "' seamless scrolling='no' width='300' height='" + ad_params.height + "'></iframe>");
@@ -215,7 +222,7 @@ var inf = {
 
         if ( this.in_dev == 1 )
         {
-            console.log(this.tid, "\nNext Checkpoints (bottom, top):", this.checkpoint.bottom, this.checkpoint.top, "\nCurrent top scroll position:", this.get_scroll(), "\nWe're on article", this.article_position, "and have loaded", this.article_count, "articles, out of", this.articles.length, "total articles.\nCurrent checkpoints: ", this.checkpoint, this.checkpoints, "\nthis.is_loading: ", this.is_loading); 
+            console.log("Next Checkpoints (bottom, top):", this.checkpoint.bottom, this.checkpoint.top, "\nCurrent top scroll position:", this.get_scroll(), "\nWe're on article", this.article_position, "and have loaded", this.article_count, "articles, out of", this.articles.length, "total articles.\nCurrent checkpoints: ", this.checkpoint, this.checkpoints); 
             //console.log(this.article_position, this.articles);
             //console.log("Current article: ", this.article_position, "/", this.articles.length, this.articles[this.article_position].title, "\nLast article loaded:", this.article_count, "/" . this.articles.length, this.articles[this.article_count].title);
         }
@@ -295,21 +302,23 @@ var inf = {
 
         if ( this.get_scroll() < this.checkpoint.top && direction == 'up' )
         {
+console.log('UP', this.article_position, this.original_article.path);
             // ************************
             // GOING UP
             // ************************
             // If we're scrolling up, we need to rewrite the URL, and prepare
             // for if we keep scrolling up.
             this.article_position -= 1;
-            var the_article = this.articles[this['article_position']];
+            if ( this.article_position >= 0 ) { var the_article = this.articles[this.article_position]; }
 
             // We don't pass any arguments to the rewrite_url function if we're
             // scrolling up to the top article. It's this way because the first
             // article element in the articles array isn't as complete as the
             // rest of the articles. It's not as complete because it's the article
             // that loads with the original page.
-            if ( this.article_position < 0 ) { this.rewrite_url(); }
-            else this.rewrite_url(the_article.path, the_article.title);
+            //if ( this.article_position < 0 ) { this.rewrite_url(); }
+            if ( this.article_position == -1 ) { this.rewrite_url(this.original_article.path, this.original_article.title); }
+            else { this.rewrite_url(the_article.path, the_article.title); }
 
             this.checkpoint = this.checkpoints[this.article_position];
 
