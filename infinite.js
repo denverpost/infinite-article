@@ -89,7 +89,7 @@ var inf = {
     },
     escape_regex: function(value)
     {
-        return value.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+        return value.replace(/([.*+?\^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
     load_omniture: function load_omniture(new_title, new_id)
     {
