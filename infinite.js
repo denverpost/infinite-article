@@ -15,7 +15,7 @@ Array.prototype.shuffle = function() {
 
 var inf = {
     property: '',
-    articles: new Array(),
+    articles: [],
     checkpoint: { top: 0, bottom: 0 },
     checkpoints: [{ top: 0, bottom: 0}],
     tid: 'dpArticleBottom', // The 't' stands for 'trigger,' as in the id of the element that triggers the next article.
