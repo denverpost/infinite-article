@@ -40,7 +40,7 @@ var inf = {
     get_article_id: function get_article_id()
     {
         var ci_ = /ci_([0-9]+)*/i;
-        article_id = ci_.exec(document.location.pathname);
+        var article_id = ci_.exec(document.location.pathname);
         return article_id[1];
     },
     original_article: { 
