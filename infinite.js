@@ -1,5 +1,5 @@
 // Array randomizer from http://www.kirupa.com/html5/shuffling_array_js.htm
-Array.prototype.shuffle = function() {
+Array.prototype.shuffle = function () {
     var input = this;
      
     for (var i = input.length-1; i >=0; i--) {
@@ -30,10 +30,10 @@ var inf = {
         // Adapted from http://extras.mnginteractive.com/live/js/jquery/jBar/jBar_btown.js
         if ( document.all ) 
         {
-            if ( window.atob ) return 10;
-            else if ( document.addEventListener ) return 9;
-            else if ( document.documentMode ) return 8;
-            else if ( window.XMLHttpRequest ) return 7;
+            if ( window.atob ) { return 10; }
+            else if ( document.addEventListener ) { return 9; }
+            else if ( document.documentMode ) { return 8; }
+            else if ( window.XMLHttpRequest ) { return 7; }
         }
     },
     ie_version: 100,
@@ -50,7 +50,7 @@ var inf = {
     },
     height: { 
         body: function() { return $('body').height(); }, 
-        element: function() { return $('#' + this['tid']).height(); }
+        element: function() { return $('#' + this.tid).height(); }
     },
     article_skeleton: '\n\
     <div id="articleOverline" class="articleOverline"></div>\n\
@@ -72,11 +72,11 @@ var inf = {
         // Returns the pixel value of the top of the element that will trigger an article change.
         try
         {
-            var value = Math.round($('#' + this['tid']).offset().top);
+            var value = Math.round($('#' + this.tid).offset().top);
         }
         catch(e)
         {
-            console.error('inf.get_top has no .top', this['tid']);
+            console.error('inf.get_top has no .top', this.tid);
         }
         return value;
     },
@@ -127,8 +127,8 @@ var inf = {
         // We separate the path into these three strings because we need access to
         // the article id in other parts of this object.
         var url = this.build_url(path);
-        if ( document.location.hash === '#dev' ) window.history.pushState('', new_title, url + '?source=infinite#dev');
-        else window.history.pushState('', new_title, url + '?source=infinite');
+        if ( document.location.hash === '#dev' ) { window.history.pushState('', new_title, url + '?source=infinite#dev'); }
+        else { window.history.pushState('', new_title, url + '?source=infinite'); }
     },
     ad_slot_id: 1,
     generate_next_slot_id: function()
@@ -166,7 +166,7 @@ var inf = {
         }
         if ( this.is_loading === 1 )
         {
-            if ( this.in_dev === 1 ) console.log("ARTICLE ALREADY LOADING, EXITING load_article()");
+            if ( this.in_dev === 1 ) { console.log("ARTICLE ALREADY LOADING, EXITING load_article()"); }
             return false;
         }
 
@@ -196,15 +196,15 @@ var inf = {
 
             $('#' + article_id + ' #articleBodyWrapper').prepend(the_article.body);
 
-            if ( the_article.date_updated === '' ) $('#' + article_id + ' #dateUpdated').hide();
-            else $('#' + article_id + ' #dateUpdated').show();
+            if ( the_article.date_updated === '' ) { $('#' + article_id + ' #dateUpdated').hide(); }
+            else { $('#' + article_id + ' #dateUpdated').show(); }
             $('#' + article_id + ' #articleDate').show();
         }
         catch (e)
         {
-            if ( this.in_dev === 1 ) console.log("ERROR: ", e);
+            if ( this.in_dev === 1 ) { console.log("ERROR: ", e); }
         }
-        if ( this.in_dev === 1 ) console.log("ARTICLE LOADED");
+        if ( this.in_dev === 1 ) { console.log("ARTICLE LOADED"); }
         this.is_loading = 0;
         return 1;
 
@@ -216,8 +216,8 @@ var inf = {
         // We'll also need some different logic for scrolling up.
 
         // We need to know which direction we're scrolling.
-        if ( $(document).scrollTop() > this.previous_scroll ) var direction = 'down';
-        else var direction = 'up';
+        if ( $(document).scrollTop() > this.previous_scroll ) { var direction = 'down'; }
+        else { var direction = 'up'; }
         this.previous_scroll = $(document).scrollTop();
 
         if ( this.in_dev === 1 )
@@ -328,7 +328,7 @@ console.log('UP', this.article_position, this.original_article.path);
     },
     init: function() 
     {
-        if ( document.location.hash === '#infinite' || document.location.hash === '#dev' ) this.in_dev = 1;
+        if ( document.location.hash === '#infinite' || document.location.hash === '#dev' ) { this.in_dev = 1; }
 
         // Prepend the array with the information *we may need* (most of it we don't) from the existing article.
         this.articles.unshift(this.original_article);
