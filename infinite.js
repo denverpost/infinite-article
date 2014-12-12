@@ -146,7 +146,7 @@ var inf = {
         var ad_params = {
             height: '250',
             query: '?property=' + this.property
-        }
+        };
         if ( this.ad_slot_id % 2 === 0 ) 
         {
             //ad_params.query += '&amp;ad=tall';
@@ -170,7 +170,7 @@ var inf = {
             return false;
         }
 
-        if ( this.in_dev === 1 ) console.log("NEW ARTICLE LOADING: ", this.article_count);
+        if ( this.in_dev === 1 ) { console.log("NEW ARTICLE LOADING: ", this.article_count); }
         this.is_loading = 1;
         try
         {
