@@ -216,8 +216,9 @@ var inf = {
         // We'll also need some different logic for scrolling up.
 
         // We need to know which direction we're scrolling.
-        if ( $(document).scrollTop() > this.previous_scroll ) { var direction = 'down'; }
-        else { var direction = 'up'; }
+        var direction = 'up';
+        if ( $(document).scrollTop() > this.previous_scroll ) { direction = 'down'; }
+
         this.previous_scroll = $(document).scrollTop();
 
         if ( this.in_dev === 1 )
@@ -302,7 +303,6 @@ var inf = {
 
         if ( this.get_scroll() < this.checkpoint.top && direction === 'up' )
         {
-console.log('UP', this.article_position, this.original_article.path);
             // ************************
             // GOING UP
             // ************************
