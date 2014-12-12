@@ -246,7 +246,7 @@ var inf = {
             }
 
             // Pull in the next article into the the_article var for use later.
-            var the_article = this.articles[this['article_position']];
+            var the_article = this.articles[this.article_position];
 
 
             // We only load the article if the count (i.e. total articles loaded)
@@ -271,7 +271,7 @@ var inf = {
                     // to make sure we're not loading a non-existent article.
                     // 
                     // This is different than checking article_position against article_length. Somehow.
-                    if ( typeof this.checkpoints[this.article_count - 1] != 'undefined' && typeof this.checkpoints[this.article_count - 1].top != 'undefined' )
+                    if ( typeof this.checkpoints[this.article_count - 1] !== 'undefined' && typeof this.checkpoints[this.article_count - 1].top !== 'undefined' )
                     {
                         this.checkpoint.top = this.checkpoints[this.article_count - 1].top;
                         this.checkpoint.bottom = this.checkpoints[this.article_count - 1].bottom;
