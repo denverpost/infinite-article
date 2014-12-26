@@ -45,7 +45,7 @@ var inf = {
     },
     original_article: { 
         // We do that replace because in omniture all double-quotes are converted to single.
-        title: $('h1#articleTitle').text().replace(/"/g,"'"),
+        title: $.trim($('h1#articleTitle').text().replace(/"/g,"'")),
         path: window.location.pathname
     },
     height: { 
@@ -95,10 +95,11 @@ var inf = {
     {
         // Reload the existing omniture, which is in a div with an id named "wait"
         var omni = $('#wait').html();
-        title = new RegExp(this.escape_regex(this.original_article.title), 'gi');
-        id = new RegExp(this.original_article.id, 'gi');
+        var title = new RegExp(this.escape_regex($.trim(this.original_article.title)), 'gi');
+        var id = new RegExp(this.original_article.id, 'gi');
 
         var new_omni = omni.replace(title, new_title);
+        if ( this.in_dev !== 0 ) { console.log("NEW_OMNI: ", new_omni, "\nTITLE: ", $.trim(this.original_article.title), title); }
         new_omni = new_omni.replace(id, new_id);
         $('#wait').after('<div id="new_omni">' + new_omni + '</div>');
     },
