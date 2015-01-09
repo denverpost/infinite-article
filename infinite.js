@@ -66,12 +66,35 @@ var inf = {
     <div><em class="shareLink"></em></div>\n\
     <div id="articleBodyWrapper"></div>\n\
     <div><em class="commentLink"></em></div>\n\
-    <div id="articleFooter">&nbsp;</div>\n\
     ';
         if ( this.reload_outbrain !== 0 )
         {
-            markup += '<div style="width:300px; height:5px; border:1px solid red;" class="OUTBRAIN" data-src="' + url + '" data-widget-id="AR_2" data-ob-template="' + this.property + '"></div>\n\
-<script type="text/javascript" async="async" src="http://widgets.outbrain.com/outbrain.js"></script>';
+            var aaaamarkup = '<div class="dpArticleBottom">\n\
+    <div class="dpArticleTabs">\n\
+        <ul>\n\
+            <li class="dpArticleTab dpActiveTab nohov">Related Stories</li>\n\
+            <li class="dpArticleTab" onclick="window.location(' + url + ');">Discussion</li>\n\
+            <div class="clear"></div>\n\
+        </ul>\n\
+        <div class="clear"></div>\n\
+    </div>\n\
+    <div class="dpArticleBottomWrap">\n\
+        <div id="dpArticleRelatedDump" class="dpArticleDump dpActiveDump">\n\
+\n\
+            <!-- #### OUTBRAIN WIDGET HERE #### -->\n\
+\n\
+            <div class="clear"></div>\n\
+        </div>\n\
+        <div class="clear"></div>\n\
+    </div>\n\
+    <div class="clear"></div>\n\
+</div>';
+            markup += '<div id="articleFooter"><div style="border:1px solid red;" class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="' + this.property + '"></div>\n\
+<!-- <script type="text/javascript" async="async" src="http://widgets.outbrain.com/outbrain.js"></script>--> </div>';
+        }
+        else
+        {
+            markup += '<div id="articleFooter">&nbsp;</div>\n';
         }
         return markup;
     },
@@ -208,6 +231,12 @@ var inf = {
             if ( the_article.date_updated === '' ) { $('#' + article_id + ' #dateUpdated').hide(); }
             else { $('#' + article_id + ' #dateUpdated').show(); }
             $('#' + article_id + ' #articleDate').show();
+
+            // If we're outbraining it, outbrain it.
+            if ( this.reload_outbrain !== 0 )
+            {
+                OBR.extern.researchWidget();
+            }
         }
         catch (e)
         {

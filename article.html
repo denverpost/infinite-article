@@ -59,7 +59,19 @@ var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = 'http://extras.denverpost.com/cache/article/' + inf_config['property'] + '-' + inf_section + '.js';
 if ( document.location.hash !== '#noscroll' ) $('head')[0].appendChild(script);
-
+Array.prototype.shuffle = function() {
+    var input = this;
+     
+    for (var i = input.length-1; i >=0; i--) {
+     
+        var randomIndex = Math.floor(Math.random()*(i+1)); 
+        var itemAtIndex = input[randomIndex]; 
+         
+        input[randomIndex] = input[i]; 
+        input[i] = itemAtIndex;
+    }
+    return input;
+}
 window.onload = function()
 {
     inf_config['articles'] = ar.shuffle();
