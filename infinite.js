@@ -70,7 +70,7 @@ var inf = {
     ';
         if ( this.reload_outbrain !== 0 )
         {
-            markup .= '<div class="OUTBRAIN" data-src="' + url + '" data-widget-id="AR_2" data-ob-template="' + this.property + '"></div>\n\
+            markup += '<div style="width:300px; height:5px; border:1px solid red;" class="OUTBRAIN" data-src="' + url + '" data-widget-id="AR_2" data-ob-template="' + this.property + '"></div>\n\
 <script type="text/javascript" async="async" src="http://widgets.outbrain.com/outbrain.js"></script>';
         }
         return markup;
@@ -107,7 +107,7 @@ var inf = {
         var id = new RegExp(this.original_article.id, 'gi');
 
         var new_omni = omni.replace(title, new_title);
-        if ( this.in_dev !== 0 ) { console.log("NEW_OMNI: ", new_omni, "\nTITLE: ", $.trim(this.original_article.title), title); }
+        //if ( this.in_dev !== 0 ) { console.log("NEW_OMNI: ", new_omni, "\nTITLE: ", $.trim(this.original_article.title), title); }
         new_omni = new_omni.replace(id, new_id);
         $('#wait').after('<div id="new_omni">' + new_omni + '</div>');
     },
