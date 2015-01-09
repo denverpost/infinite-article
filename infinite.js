@@ -52,7 +52,8 @@ var inf = {
         body: function() { return $('body').height(); }, 
         element: function() { return $('#' + this.tid).height(); }
     },
-    article_skeleton: '\n\
+    article_skeleton: function(url) {
+        var markup = '\n\
     <div id="articleOverline" class="articleOverline"></div>\n\
     <h1 id="articleTitle" class="articleTitle"></h1>\n\
     <div id="articleByline" class="articleByline">\n\
@@ -66,7 +67,14 @@ var inf = {
     <div id="articleBodyWrapper"></div>\n\
     <div><em class="commentLink"></em></div>\n\
     <div id="articleFooter">&nbsp;</div>\n\
-    ',
+    ';
+        if ( this.reload_outbrain !== 0 )
+        {
+            markup .= '<div class="OUTBRAIN" data-src="' + url + '" data-widget-id="AR_2" data-ob-template="' + this.property + '"></div>\n\
+<script type="text/javascript" async="async" src="http://widgets.outbrain.com/outbrain.js"></script>';
+        }
+        return markup;
+    },
     get_top: function()
     {
         // Returns the pixel value of the top of the element that will trigger an article change.
@@ -180,7 +188,7 @@ var inf = {
 
             $('#' + this['tid']).after('<div style="margin-bottom:250px;" class="next-article articleBox" id="' + article_id + '"></div>');
             //$('#' + this['tid']).remove();
-            $('#' + article_id).html(this['article_skeleton']);
+            $('#' + article_id).html(this.article_skeleton(this.build_url(the_article.path)));
 
             // The dates take some finessing, so we hide them until we're ready.
             $('#' + article_id + ' #articleDate').hide();
