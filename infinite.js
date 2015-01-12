@@ -69,7 +69,7 @@ var inf = {
     ';
         if ( this.reload_outbrain !== 0 )
         {
-            var aaaamarkup = '<div class="dpArticleBottom">\n\
+            var not_in_use_yet = '<div class="dpArticleBottom">\n\
     <div class="dpArticleTabs">\n\
         <ul>\n\
             <li class="dpArticleTab dpActiveTab nohov">Related Stories</li>\n\
@@ -89,8 +89,7 @@ var inf = {
     </div>\n\
     <div class="clear"></div>\n\
 </div>';
-            markup += '<div id="articleFooter"><div style="border:1px solid red;" class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="' + this.property + '"></div>\n\
-<!-- <script type="text/javascript" async="async" src="http://widgets.outbrain.com/outbrain.js"></script>--> </div>';
+            markup += '<div id="articleFooter"><div style="border:1px solid red;" class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="DenverPost"></div> </div>';
         }
         else
         {
@@ -366,7 +365,7 @@ var inf = {
     },
     init: function() 
     {
-        if ( document.location.hash === '#infinite' || document.location.hash === '#dev' ) { this.in_dev = 1; }
+        if ( document.location.hash === '#infinite' || document.location.hash === '#dev' || document.location.hash === '#devbeta' ) { this.in_dev = 1; }
 
         // Prepend the array with the information *we may need* (most of it we don't) from the existing article.
         this.articles.unshift(this.original_article);
