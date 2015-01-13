@@ -74,7 +74,7 @@ var inf = {
     <div class="dpArticleTabs">\n\
         <ul>\n\
             <li class="dpArticleTab dpActiveTab nohov">Related Stories</li>\n\
-            <li class="dpArticleTab" onclick="window.location.href = ' + url + '#disqus_thread;">Discussion</li>\n\
+            <li class="dpArticleTab" onclick="window.location.href = ' + url + '#disqus_thread;"><a href="' + url + '#disqus_thread">Discussion</a></li>\n\
             <div class="clear"></div>\n\
         </ul>\n\
         <div class="clear"></div>\n\
