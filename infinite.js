@@ -90,7 +90,6 @@ var inf = {
     </div>\n\
     <div class="clear"></div>\n\
 </div>';
-            // markup += '<div id="articleFooter"><div style="border:1px solid red;" class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="DenverPost"></div> </div>';
         }
         else
         {
