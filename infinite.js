@@ -24,7 +24,7 @@ var inf = {
     in_dev: 0,  // Set to 1 if dev conditions are met in init() method.
     reload_chartbeat: 0,    // Set to 1 if you want chartbeat to track the new PV.
     reload_comments: 0, // Set to 1 to load comments at the end of each article.
-    reload_outbrain: 0,     // Set to 1... you know the drill.
+    reload_outbrain: 1,     // Set to 1... you know the drill.
     set_ie: function () 
     {
         // Adapted from http://extras.mnginteractive.com/live/js/jquery/jBar/jBar_btown.js
@@ -69,11 +69,12 @@ var inf = {
     ';
         if ( this.reload_outbrain !== 0 )
         {
-            var not_in_use_yet = '<div class="dpArticleBottom">\n\
+
+            markup += '<div id="articleFooter" class="dpArticleBottom">\n\
     <div class="dpArticleTabs">\n\
         <ul>\n\
             <li class="dpArticleTab dpActiveTab nohov">Related Stories</li>\n\
-            <li class="dpArticleTab" onclick="window.location(' + url + ');">Discussion</li>\n\
+            <li class="dpArticleTab" onclick="window.location.href = ' + url + '#disqus_thread;">Discussion</li>\n\
             <div class="clear"></div>\n\
         </ul>\n\
         <div class="clear"></div>\n\
@@ -81,7 +82,7 @@ var inf = {
     <div class="dpArticleBottomWrap">\n\
         <div id="dpArticleRelatedDump" class="dpArticleDump dpActiveDump">\n\
 \n\
-            <!-- #### OUTBRAIN WIDGET HERE #### -->\n\
+            <div class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="DenverPost"></div>\n\
 \n\
             <div class="clear"></div>\n\
         </div>\n\
@@ -89,7 +90,7 @@ var inf = {
     </div>\n\
     <div class="clear"></div>\n\
 </div>';
-            markup += '<div id="articleFooter"><div style="border:1px solid red;" class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="DenverPost"></div> </div>';
+            // markup += '<div id="articleFooter"><div style="border:1px solid red;" class="OUTBRAIN" data-src="http://www.' + this.property + '.com' + url + '" data-widget-id="AR_2" data-ob-template="DenverPost"></div> </div>';
         }
         else
         {
@@ -223,7 +224,7 @@ var inf = {
             $('#' + article_id + ' #date_published').text(the_article.date_published.replace(current_year, ''));
             $('#' + article_id + ' #dateUpdated span').text(the_article.date_updated.replace(current_year, ''));
             $('#' + article_id + ' .shareLink').html('<a href="' + this.build_url(the_article.path) + '#articleOverline">Share this article</a>');
-            $('#' + article_id + ' .commentLink').html('<a href="' + this.build_url(the_article.path) + '#disqus_thread">Comment / read comments on this article</a>');
+            //$('#' + article_id + ' .commentLink').html('<a href="' + this.build_url(the_article.path) + '#disqus_thread">Comment / read comments on this article</a>');
 
             $('#' + article_id + ' #articleBodyWrapper').prepend(the_article.body);
 
