@@ -18,6 +18,8 @@ var inf = {
     articles: [],
     checkpoint: { top: 0, bottom: 0 },
     checkpoints: [{ top: 0, bottom: 0}],
+    article_set: '',
+    article_sets: [],
     tid: 'dpArticleBottom', // The 't' stands for 'trigger,' as in the id of the element that triggers the next article.
     article_count: 0,   // How many articles we've loaded
     article_position: 0,   // Which article we're on.
@@ -37,6 +39,17 @@ var inf = {
         }
     },
     ie_version: 100,
+    update_article_sets: function ()
+    {
+        // Make sure that the value of this.article_set no longer exists
+        // in this.article_sets. We use these vars to track which sets
+        // of articles we've loaded and which we haven't.
+        var index = this.article_sets.indexOf(this.article_set);
+        if (  index > -1 )
+        {
+            this.article_sets.splice(index, 1);
+        }
+    },
     get_article_id: function get_article_id()
     {
         var ci_ = /ci_([0-9]+)*/i;

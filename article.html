@@ -25,11 +25,23 @@ var cachebuster = '?date=2014120913';
 var inf_config = {
     property: 'denverpost',
     tid: 'dpArticleBottom',
+    article_set: '',
+    article_sets: ['business', 'entertainment', 'style', 'sports', 'opinion', 'news'],
     reload_chartbeat: 1,// Future-proofing
     reload_outbrain: 1, // Future-proofing
     reload_comments: 0,// Future-proofing
     section_lookups: {}
 };
+
+// &&& PROPERTY-SPECIFIC
+var check_href = document.location.href;
+var inf_section = 'all';
+if ( /business|aerospace|airlines|economy|energy|foodretail|technology|telecom|tourism/i.exec(check_href) ) inf_section = 'business';
+else if ( /opinion|editorials|perspective/i.exec(check_href) ) inf_section = 'opinion';
+else if ( /comedy|art|theater|television|videogames/i.exec(check_href) ) inf_section = 'entertainment';
+else if ( /style|fashion|food|fitness|homegarden|petnews|smart|travel/i.exec(check_href) ) inf_section = 'style';
+else if ( /sports|broncos|avalanche|hochman|paige|nuggets|rockies|rapids|superbowl|colleges|olympics|preps|outdoors|motorsports|cycling|skiing/i.exec(check_href) ) inf_section = 'sports';
+inf_config['article_set'] = inf_section;
 
 // Load the infinite-article script.
 // It's in a different location on dev.
@@ -46,14 +58,6 @@ else
 if ( document.location.hash !== '#noscroll' ) $('head')[0].appendChild(script);
 
 
-// &&& PROPERTY-SPECIFIC
-var check_href = document.location.href;
-var inf_section = 'all';
-if ( /business|aerospace|airlines|economy|energy|foodretail|technology|telecom|tourism/i.exec(check_href) ) inf_section = 'business';
-else if ( /opinion|editorials|perspective/i.exec(check_href) ) inf_section = 'opinion';
-else if ( /comedy|art|theater|television|videogames/i.exec(check_href) ) inf_section = 'entertainment';
-else if ( /style|fashion|food|fitness|homegarden|petnews|smart|travel/i.exec(check_href) ) inf_section = 'style';
-else if ( /sports|broncos|avalanche|hochman|paige|nuggets|rockies|rapids|superbowl|colleges|olympics|preps|outdoors|motorsports|cycling|skiing/i.exec(check_href) ) inf_section = 'sports';
 
 var script = document.createElement('script');
 script.type = 'text/javascript';
