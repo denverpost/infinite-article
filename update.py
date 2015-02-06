@@ -247,6 +247,9 @@ def parse_article(article):
             # Remove the in-article ads
             body = re.sub("<div id='dfp-EMBEDDED'>.*<!-- End DFP Premium ad uniqueId: dfp-EMBEDDED -->", "", body)
 
+            # Remove redirects 
+            body = re.sub("<script>window\.document\.location.href =.*<\/script>", "", body)
+
         return body
     return ''
 
