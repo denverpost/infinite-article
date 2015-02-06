@@ -313,14 +313,16 @@ var inf = {
             // We increase article_position by one because it's a zero-index value,
             // and articles.length is a one-index value.
             this.article_position += 1;
+            
             if ( this.article_position > this.articles.length )
             {
-                // WE NEED MORE ARTICLES. Let's load the next set of articles. ***
-                if ( this.load_article_set() === false )
-                {
-                    this.article_position -= 1;
-                    return false;
-                }
+                this.article_position -= 1;
+                return false;
+            }
+            else if ( this.article_position > ( this.articles.length - 1 ) )
+            {
+                // If we're on the second-to-last article, load more.
+                this.load_article_set();
             }
 
             // Pull in the next article into the the_article var for use later.
