@@ -50,6 +50,29 @@ var inf = {
             this.article_sets.splice(index, 1);
         }
     },
+    load_article_set: function ()
+    {
+        // Add articles from a set of articles to the inf object.
+        // Update relevant variables.
+
+        if ( this.article_sets.length === 0 ) return false;
+
+        // Get a new article_set value.
+        this.article_set = this.article_sets[0];
+        this.update_article_sets();
+
+        // Load the articles
+        var script = document.createElement('script');
+        script.src = 'http://extras.denverpost.com/cache/article/' + this.property + '-' + this.article_set + '.js';
+        $('head')[0].appendChild(script);
+
+        // Wait a little bit before continuing. The first line of the downloaded script is
+        // var ar = new Array(
+        // which means we've got a var named ar that's full with new articles.
+        setTimeout( function () {
+            window.inf.articles.push.apply(window.inf.articles, window.ar);
+        }, 3000);
+    },
     get_article_id: function get_article_id()
     {
         var ci_ = /ci_([0-9]+)*/i;
@@ -292,8 +315,12 @@ var inf = {
             this.article_position += 1;
             if ( this.article_position > this.articles.length )
             {
-                this.article_position -= 1;
-                return false;
+                // WE NEED MORE ARTICLES. Let's load the next set of articles. ***
+                if ( this.load_article_set() === false )
+                {
+                    this.article_position -= 1;
+                    return false;
+                }
             }
 
             // Pull in the next article into the the_article var for use later.

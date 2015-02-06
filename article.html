@@ -78,6 +78,7 @@ Array.prototype.shuffle = function() {
 }
 window.onload = function()
 {
+    ar = ar.slice(0, 1); // JUST FOR DEV
     inf_config['articles'] = ar.shuffle();
 
     // Update inf with the values we've set in inf_config
