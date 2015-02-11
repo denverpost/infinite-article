@@ -319,9 +319,9 @@ var inf = {
                 this.article_position -= 1;
                 return false;
             }
-            else if ( this.article_position > ( this.articles.length - 1 ) )
+            else if ( this.article_position === ( this.articles.length - 3 ) )
             {
-                // If we're on the second-to-last article, load more.
+                // If we're on the third-to-last article, load more.
                 this.load_article_set();
             }
 
