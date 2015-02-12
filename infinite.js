@@ -193,6 +193,7 @@ var inf = {
         // The path is an object with three parts: prefix, article id, and suffix.
         // We separate the path into these three strings because we need access to
         // the article id in other parts of this object.
+        document.title = new_title;
         var url = this.build_url(path);
         if ( document.location.hash === '#dev' ) { window.history.pushState('', new_title, url + '?source=infinite#dev'); }
         else { window.history.pushState('', new_title, url + '?source=infinite'); }
