@@ -224,6 +224,10 @@ var inf = {
         var ad_top = this.checkpoint.bottom - ad_height;
         jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/app/infinite/ad.html" + ad_params.query + "' seamless scrolling='no' frameborder='0' width='300' height='" + ad_height + "'></iframe>");
         jQuery("#" + slot_id).css({'top': ad_top + 'px', 'position': 'absolute'});
+
+        // Now do the embedded ad.
+        var article_id = 'article0' + this['article_count'];
+        jQuery("#" + article_id + ' .articleEmbeddedAdBox').html("<iframe src='http://extras.denverpost.com/app/infinite/ad-embedded.html" + ad_params.query + "' seamless scrolling='no' frameborder='0' width='300' height='300'></iframe>");
     },
     is_loading: 0,
     load_article: function() 
