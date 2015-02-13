@@ -10,7 +10,10 @@
     <script>
     googletag.pubads().setTargeting('page',['article']);
     </script>
-    <style type="text/css">body { margin:0; padding:0; }</style>
+    <style type="text/css">
+    body { margin:0; padding:0; }
+    .ad { padding-bottom: 5px; }
+    </style>
 </head>
 <body>
 <script>
@@ -36,7 +39,7 @@ var agSection = 'news';
 </script>
 
 
-    <div id="dfp-20">
+    <div class="ad" id="dfp-20">
         <script>
             googletag.cmd.push(function(){
                googletag.defineSlot(DFM_ad_loc, [adsize['250']], 'dfp-20').setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv', agSection).addService(googletag.pubads());
@@ -47,7 +50,7 @@ var agSection = 'news';
             });
         </script>
     </div>
-    <div id="dfp-22">
+    <div class="ad" id="dfp-22">
         <script>
 googletag.defineSlot(DFM_ad_loc,[adsize['250']], 'dfp-22').addService(googletag.pubads()).setTargeting('pos',['Cube3_RRail_lower']).setTargeting('kv','');
 googletag.pubads().enableSyncRendering();
@@ -55,7 +58,7 @@ googletag.enableServices();
 googletag.display('dfp-22');
         </script>
     </div>
-    <div id="dfp-34">
+    <div class="ad" id="dfp-34">
         <script>
 googletag.defineSlot(DFM_ad_loc,[adsize['250'],adsize['600']], 'dfp-34').addService(googletag.pubads()).setTargeting('pos',['Cube3b_Flex']).setTargeting('kv','');
 googletag.pubads().enableSyncRendering();
@@ -63,7 +66,7 @@ googletag.enableServices();
 googletag.display('dfp-34');
         </script>
     </div>
-    <div id="dfp-23">
+    <div class="ad" id="dfp-23">
         <script>
 googletag.defineSlot(DFM_ad_loc,[[300,250]], 'dfp-23').addService(googletag.pubads()).setTargeting('pos',['Cube4_BottomLine']).setTargeting('kv','');
 googletag.pubads().enableSyncRendering();
