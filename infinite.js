@@ -222,7 +222,7 @@ var inf = {
         }
         var ad_height = 1100;
         var ad_top = this.checkpoint.bottom - ad_height;
-        jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/ad/ad.html" + ad_params.query + "' seamless scrolling='no' frameborder='0' width='300' height='" + ad_height + "'></iframe>");
+        jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/app/infinite/ad.html" + ad_params.query + "' seamless scrolling='no' frameborder='0' width='300' height='" + ad_height + "'></iframe>");
         jQuery("#" + slot_id).css({'top': ad_top + 'px', 'position': 'absolute'});
     },
     is_loading: 0,
