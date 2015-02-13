@@ -220,8 +220,10 @@ var inf = {
             //ad_params.query += '&amp;ad=tall';
             //ad_params.height = '600';
         }
-        jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/ad/ad.html" + ad_params.query + "' seamless scrolling='no' frameborder='0' width='300' height='" + ad_params.height + "'></iframe>");
-        jQuery("#" + slot_id).css({'top': this.checkpoint.bottom + 'px', 'position': 'absolute'});
+        var ad_height = 1100;
+        var ad_top = this.checkpoint.bottom - ad_height;
+        jQuery("#" + slot_id).html("<iframe src='http://extras.denverpost.com/ad/ad.html" + ad_params.query + "' seamless scrolling='no' frameborder='0' width='300' height='" + ad_height + "'></iframe>");
+        jQuery("#" + slot_id).css({'top': ad_top + 'px', 'position': 'absolute'});
     },
     is_loading: 0,
     load_article: function() 

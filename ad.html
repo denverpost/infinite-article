@@ -13,9 +13,7 @@
     <style type="text/css">body { margin:0; padding:0; }</style>
 </head>
 <body>
-    <div id="dfp-20">
-        <script>
-
+<script>
 var properties = {
     'denverpost': '/8013/denverpost.com',
     'mercurynews': '/8013/mercurynews.com'
@@ -27,19 +25,50 @@ var params = location.search;
 if ( params.length > 0 ) property = params.split('property=')[1];
 
 // We've got a few ad sizes we may want.
-var adsize = [300,250];
+var adsize = {
+    '250': [300,250],
+    '600': [300,600],
+};
 if ( params.indexOf('ad=tall') > -1 ) adsize = [300,600];
 if ( params.indexOf('ad=supertall') > -1 ) adsize = [300,1050];
+var DFM_ad_loc = properties[property];
+var agSection = 'news';
+</script>
 
-            var DFM_ad_loc = properties[property];
-            var agSection = 'news';
+
+    <div id="dfp-20">
+        <script>
             googletag.cmd.push(function(){
-                               googletag.defineSlot(DFM_ad_loc, [adsize], 'dfp-20').setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv', agSection).addService(googletag.pubads());
-                               googletag.pubads().enableSyncRendering();
-                               //googletag.pubads().disableInitialLoad();
-                               googletag.enableServices();
-                               googletag.display('dfp-20');
+               googletag.defineSlot(DFM_ad_loc, [adsize['250']], 'dfp-20').setTargeting('pos',['Cube1_RRail_ATF']).setTargeting('kv', agSection).addService(googletag.pubads());
+               googletag.pubads().enableSyncRendering();
+               //googletag.pubads().disableInitialLoad();
+               googletag.enableServices();
+               googletag.display('dfp-20');
             });
+        </script>
+    </div>
+    <div id="dfp-22">
+        <script>
+googletag.defineSlot(DFM_ad_loc,[adsize['250']], 'dfp-22').addService(googletag.pubads()).setTargeting('pos',['Cube3_RRail_lower']).setTargeting('kv','');
+googletag.pubads().enableSyncRendering();
+googletag.enableServices();                                         
+googletag.display('dfp-22');
+        </script>
+    </div>
+    <div id="dfp-34">
+        <script>
+googletag.defineSlot(DFM_ad_loc,[adsize['250'],adsize['600']], 'dfp-34').addService(googletag.pubads()).setTargeting('pos',['Cube3b_Flex']).setTargeting('kv','');
+googletag.pubads().enableSyncRendering();
+googletag.enableServices();                                         
+googletag.display('dfp-34');
+        </script>
+    </div>
+    <div id="dfp-23">
+        <script>
+googletag.defineSlot(DFM_ad_loc,[[300,250]], 'dfp-23').addService(googletag.pubads()).setTargeting('pos',['Cube4_BottomLine']).setTargeting('kv','');
+googletag.pubads().enableSyncRendering();
+googletag.enableServices();                                         
+googletag.display('dfp-23');
         </script>
     </div>
 </body>
