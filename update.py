@@ -237,6 +237,7 @@ def parse_article(article):
             # Strip out any window.location redirects ala
             # window.location.replace(\'http://blogs.denverpost.com/thespot/2014/08/15/cory-gardner-mark-udall-flooding/111439/\');
             body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
+            body = re.sub("<script>window\.document\.location\.href =.*<\/script>", "", body)
 
             # Kill any document.write's
             body = re.sub("document\.write\(([^\)]+)\);", "", body)
@@ -246,9 +247,6 @@ def parse_article(article):
 
             # Remove the in-article ads
             body = re.sub("<div id='dfp-EMBEDDED'>.*<!-- End DFP Premium ad uniqueId: dfp-EMBEDDED -->", "", body)
-
-            # Remove redirects 
-            body = re.sub("<script>window\.document\.location.href =.*<\/script>", "", body)
 
         return body
     return ''
