@@ -187,7 +187,7 @@ var inf = {
         }
         return url;
     },
-    rewrite_url: function rewrite_url(path, new_title) 
+    rewrite_url: function rewrite_url(path, new_title, direction) 
     {
         // Change the URL in the address bar to reflect the current article.
         // The path is an object with three parts: prefix, article id, and suffix.
@@ -195,8 +195,24 @@ var inf = {
         // the article id in other parts of this object.
         document.title = new_title;
         var url = this.build_url(path);
-        if ( document.location.hash === '#dev' ) { window.history.pushState('', new_title, url + '?source=infinite#dev'); }
-        else { window.history.pushState('', new_title, url + '?source=infinite'); }
+        if ( direction == 'down' )
+        {
+            if ( document.location.hash === '#dev' ) { window.history.pushState('', new_title, url + '?source=infinite#dev'); }
+            else { window.history.pushState('', new_title, url + '?source=infinite'); }
+        }
+        else
+        {
+            if ( document.location.hash === '#dev' ) 
+            {
+                location.href=url + '?source=infinite#dev'; 
+                document.title = new_title; 
+            }
+            else 
+            {
+                location.href=url + '?source=infinite'; 
+                document.title = new_title; 
+            }
+        }
     },
     ad_slot_id: 1,
     generate_next_slot_id: function()
@@ -313,7 +329,6 @@ var inf = {
             // ************************
             // GOING DOWN
             // ************************
-            //
  
             // This makes sure we're not trying to load an article after we've run out of articles to load.
             //
@@ -381,7 +396,7 @@ var inf = {
             }
 
             this.load_omniture(the_article.title, the_article.path.id);
-            this.rewrite_url(the_article.path, the_article.title);
+            this.rewrite_url(the_article.path, the_article.title, 'down');
             this.load_ad();
 
             return 'down';
@@ -403,8 +418,8 @@ var inf = {
             // rest of the articles. It's not as complete because it's the article
             // that loads with the original page.
             //if ( this.article_position < 0 ) { this.rewrite_url(); }
-            if ( this.article_position === -1 ) { this.rewrite_url(this.original_article.path, this.original_article.title); }
-            else { this.rewrite_url(the_article.path, the_article.title); }
+            if ( this.article_position === -1 ) { this.rewrite_url(this.original_article.path, this.original_article.title, 'up'); }
+            else { this.rewrite_url(the_article.path, the_article.title, 'up'); }
 
             this.checkpoint = this.checkpoints[this.article_position];
 
