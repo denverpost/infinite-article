@@ -239,6 +239,8 @@ def parse_article(article):
             body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
             body = re.sub("<script>window\.document\.location\.href =.*<\/script>", "", body)
 
+            body = re.sub("&autoplay=1", "", body)
+
             # Kill any document.write's
             body = re.sub("document\.write\(([^\)]+)\);", "", body)
 
