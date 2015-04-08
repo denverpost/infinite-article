@@ -202,16 +202,8 @@ var inf = {
         }
         else
         {
-            if ( document.location.hash === '#dev' ) 
-            {
-                location.href=url + '?source=infinite#dev'; 
-                document.title = new_title; 
-            }
-            else 
-            {
-                location.href=url + '?source=infinite'; 
-                document.title = new_title; 
-            }
+            if ( document.location.hash === '#dev' ) { window.history.replaceState('', new_title, url + '?source=infinite#dev'); }
+            else { window.history.replaceState('', new_title, url + '?source=infinite'); }
         }
     },
     ad_slot_id: 1,
