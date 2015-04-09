@@ -234,14 +234,14 @@ def parse_article(article):
         regex.match(article_markup)
         body = r.groups()[0]
         if body != '':
-            # Strip out any window.location redirects ala
+            # Remove any window.location redirects ala
             # window.location.replace(\'http://blogs.denverpost.com/thespot/2014/08/15/cory-gardner-mark-udall-flooding/111439/\');
             body = re.sub("window\.location\.replace\(\\'([^\\\]+)\\'\);","", body)
             body = re.sub("<script>window\.document\.location\.href =.*<\/script>", "", body)
 
             body = re.sub("&autoplay=1", "", body)
 
-            # Kill any document.write's
+            # Remove any document.write's
             body = re.sub("document\.write\(([^\)]+)\);", "", body)
 
             # Strip out the newline characters.

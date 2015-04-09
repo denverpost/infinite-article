@@ -442,7 +442,8 @@ var inf = {
         }
 
         // Checkpoint accuracy.
-        this.checkpoint.bottom = this.get_top();
-        this.checkpoints[0].bottom = this.get_top();
+        // Need to edit these should the article-comments tab get clicked.
+        this.checkpoint.bottom = this.get_top() + 200;
+        this.checkpoints[0].bottom = this.get_top() + 200;
     }
 };
