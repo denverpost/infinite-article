@@ -214,7 +214,7 @@ def main(pub, slug, url):
 
     # FTP that file to a production server.
     if options.test == False:
-        ftz = FtpWrapper('mntech\dptemp', 'ftp1.denverpost.com', '/DenverPost/cache/article')
+        ftz = FtpWrapper('mntech\dptemp', 'ftp1.denverpost.com', 'DenverPost/cache/article')
         ftz.ftp_file('%s-%s.js' % (pub, slug))
 
 
