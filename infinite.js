@@ -167,7 +167,7 @@ var inf = {
         var id = new RegExp(this.original_article.id, 'gi');
 
         var new_omni = omni.replace(title, new_title);
-        console.log("NEW_OMNI: ", new_omni, "\n\nTITLE: ", $.trim(this.original_article.title), title, new_title);
+        //console.log("NEW_OMNI: ", new_omni, "\n\nTITLE: ", $.trim(this.original_article.title), title, new_title);
         //if ( this.in_dev !== 0 ) { console.log("NEW_OMNI: ", new_omni, "\nTITLE: ", $.trim(this.original_article.title), title); }
         new_omni = new_omni.replace(id, new_id);
         $('#wait').after('<div id="new_omni">' + new_omni + '</div>');
