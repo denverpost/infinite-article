@@ -158,11 +158,51 @@ var inf = {
         value = value.replace(/(\r\n|\n|\r)/gm, "");
         return value.replace(/([.*+?\^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
-    load_analytics: function(new_url)
+    load_analytics: function(new_url, new_title)
     {
         // Reload the existing anayltics
         var url = new_url['prefix'] + new_url['id'] + '/' + new_url['suffix'];
         _gaq.push(['_trackPageview', url]);
+        //analyticsVPV = function(virtualPageName) {
+            dataLayer.push({
+                'event': 'analyticsVPV',
+                'vpvName': new_title,
+                //'ga_ua':'UA-61435456-7',
+                //'quantcast':'p-4ctCQwtnNBNs2',
+                //'quantcast label': 'Denver',
+                //'comscore':'6035443',
+                'errorType':'',
+                'Publisher Domain':document.location.host.replace('www.', ''),
+                'Publisher Product':document.location.host,
+                'Dateline':'',
+                'Publish Hour of Day':'',
+                'Create Hour of Day':'',
+                'Update Hour of Day':'',
+                'Behind Paywall':'NO',
+                'Mobile Presentation':'NO',
+                'kv':'',
+                'Release Version':'',
+                'Digital Publisher':'',
+                'Platform':'',
+                'Section':'',
+                'Taxonomy1':'',
+                'Taxonomy2':'',
+                'Taxonomy3':'',
+                'Taxonomy4':'',
+                'Taxonomy5':'',
+                'Content Source':'',
+                'Canonical URL': url,
+                'Slug':new_url['suffix'],
+                'Content ID':new_url['id'],
+                'Page Type':'article',
+                'Publisher State':'CO',
+                'Byline':'',
+                'Content Title':new_title,
+                'URL':url,
+                'Page Title':new_title + ' - The Denver Post',
+                'User ID':''
+            });
+        //}
 
     },
     build_url: function(path)
@@ -383,7 +423,7 @@ var inf = {
                 this.checkpoint.bottom = this.checkpoints[this.article_position].bottom;
             }
 
-            this.load_analytics(the_article.path);
+            this.load_analytics(the_article.path, the_article.title);
             this.rewrite_url(the_article.path, the_article.title, 'down');
             this.load_ad();
 
