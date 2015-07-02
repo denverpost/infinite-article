@@ -156,23 +156,16 @@ var inf = {
     escape_regex: function(value)
     {
         value = value.replace(/(\r\n|\n|\r)/gm, "");
-        //value = value.replace(/()/gm, "");
         return value.replace(/([.*+?\^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
-    load_omniture: function load_omniture(new_title, new_id)
+    load_analytics: function(new_url)
     {
-        // Reload the existing omniture, which is in a div with an id named "wait"
-        var omni = $('#wait').html();
-        var title = new RegExp(escapeHtmlEntities(this.escape_regex($.trim(this.original_article.title))), 'gi');
-        var id = new RegExp(this.original_article.id, 'gi');
+        // Reload the existing anayltics
+        var url = new_url['prefix'] + new_url['id'] + '/' + new_url['suffix'];
+        _gaq.push(['_trackPageview', url]);
 
-        var new_omni = omni.replace(title, new_title);
-        //console.log("NEW_OMNI: ", new_omni, "\n\nTITLE: ", $.trim(this.original_article.title), title, new_title);
-        //if ( this.in_dev !== 0 ) { console.log("NEW_OMNI: ", new_omni, "\nTITLE: ", $.trim(this.original_article.title), title); }
-        new_omni = new_omni.replace(id, new_id);
-        $('#wait').after('<div id="new_omni">' + new_omni + '</div>');
     },
-    build_url: function build_url(path)
+    build_url: function(path)
     {
         // Return the path part of a URL. It will look something like:
         // "/news/ci_26331707/woman-charged-murder-after-hitting-husband-car"
@@ -390,7 +383,7 @@ var inf = {
                 this.checkpoint.bottom = this.checkpoints[this.article_position].bottom;
             }
 
-            this.load_omniture(the_article.title, the_article.path.id);
+            this.load_analytics(the_article.path);
             this.rewrite_url(the_article.path, the_article.title, 'down');
             this.load_ad();
 
