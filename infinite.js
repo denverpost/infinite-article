@@ -162,7 +162,7 @@ var inf = {
     {
         // Reload the existing anayltics
         var url = new_url['prefix'] + new_url['id'] + '/' + new_url['suffix'];
-        _gaq.push(['_trackPageview', url]);
+        //_gaq.push(['_trackPageview', url]);
         //analyticsVPV = function(virtualPageName) {
             dataLayer.push({
                 'event': 'analyticsVPV',
@@ -183,8 +183,8 @@ var inf = {
                 'kv':'',
                 'Release Version':'',
                 'Digital Publisher':'',
-                'Platform':'',
-                'Section':'',
+                'Platform':'NGPS',
+                'Section':'Infinite Test',
                 'Taxonomy1':'',
                 'Taxonomy2':'',
                 'Taxonomy3':'',
