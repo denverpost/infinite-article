@@ -158,22 +158,22 @@ var inf = {
         value = value.replace(/(\r\n|\n|\r)/gm, "");
         return value.replace(/([.*+?\^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
-    load_analytics: function(new_url, new_title)
+    load_analytics: function(the_article)
     {
-        // Reload the existing anayltics
+        var new_url = the_article.path;
         var url = new_url['prefix'] + new_url['id'] + '/' + new_url['suffix'];
-        //_gaq.push(['_trackPageview', url]);
+        console.log(url, the_article);
         //analyticsVPV = function(virtualPageName) {
             dataLayer.push({
                 'event': 'analyticsVPV',
-                'vpvName': new_title,
+                'vpvName': the_article['title'],
                 //'ga_ua':'UA-61435456-7',
                 //'quantcast':'p-4ctCQwtnNBNs2',
                 //'quantcast label': 'Denver',
                 //'comscore':'6035443',
                 'errorType':'',
                 'Publisher Domain':document.location.host.replace('www.', ''),
-                'Publisher Product':document.location.host,
+                'Publisher Product':document.location.host.replace('www.', ''),
                 'Dateline':'',
                 'Publish Hour of Day':'',
                 'Create Hour of Day':'',
@@ -182,7 +182,7 @@ var inf = {
                 'Mobile Presentation':'NO',
                 'kv':'',
                 'Release Version':'',
-                'Digital Publisher':'',
+                'Digital Publisher':document.location.host.replace('www.', ''),
                 'Platform':'NGPS',
                 'Section':'Infinite Test',
                 'Taxonomy1':'',
@@ -190,16 +190,16 @@ var inf = {
                 'Taxonomy3':'',
                 'Taxonomy4':'',
                 'Taxonomy5':'',
-                'Content Source':'',
-                'Canonical URL': url,
+                'Content Source':document.location.host.replace('www.', ''),
+                'Canonical URL':url,
                 'Slug':new_url['suffix'],
                 'Content ID':new_url['id'],
                 'Page Type':'article',
                 'Publisher State':'CO',
-                'Byline':'',
-                'Content Title':new_title,
+                'Byline':the_article['byline'],
+                'Content Title':the_article['title'],
                 'URL':url,
-                'Page Title':new_title + ' - The Denver Post',
+                'Page Title':the_article['title'] + ' - The Denver Post',
                 'User ID':''
             });
         //}
@@ -423,7 +423,7 @@ var inf = {
                 this.checkpoint.bottom = this.checkpoints[this.article_position].bottom;
             }
 
-            this.load_analytics(the_article.path, the_article.title);
+            this.load_analytics(the_article);
             this.rewrite_url(the_article.path, the_article.title, 'down');
             this.load_ad();
 
