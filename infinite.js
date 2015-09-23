@@ -239,7 +239,7 @@ var inf = {
         else
         {
             if ( document.location.hash === '#dev' ) { window.history.replaceState('', new_title, url + '?source=infinite#dev'); }
-            else { window.history.replaceState('', new_title, url + '?source=infinite'); }
+            else { window.history.replaceState('', new_title, url + '?source=infinite-up'); }
         }
     },
     ad_slot_id: 1,
