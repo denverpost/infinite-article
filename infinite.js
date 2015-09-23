@@ -449,6 +449,8 @@ var inf = {
             if ( this.article_position === -1 ) { this.rewrite_url(this.original_article.path, this.original_article.title, 'up'); }
             else { this.rewrite_url(the_article.path, the_article.title, 'up'); }
 
+            this.load_analytics(the_article);
+
             this.checkpoint = this.checkpoints[this.article_position];
 
             return 'up';
