@@ -184,7 +184,7 @@ var inf = {
                 'Release Version':'',
                 'Digital Publisher':document.location.host.replace('www.', ''),
                 'Platform':'NGPS',
-                'Section':'Infinite Test',
+                'Section':'',
                 'Taxonomy1':'',
                 'Taxonomy2':'',
                 'Taxonomy3':'',
@@ -248,7 +248,7 @@ var inf = {
         this.ad_slot_id ++;
         return 'adslot' + this.ad_slot_id;
     },
-    load_ad: function() 
+    load_ads: function() 
     {
         // Generate next slot name
         var slot_id = this.generate_next_slot_id();
@@ -425,7 +425,7 @@ var inf = {
 
             this.load_analytics(the_article);
             this.rewrite_url(the_article.path, the_article.title, 'down');
-            this.load_ad();
+            this.load_ads();
 
             return 'down';
         }
