@@ -17,24 +17,10 @@ class ParseXml:
 
     def __init__(self, markup, fields, template):
         """ ..."""
-        self.set_markup(markup)
-        self.set_fields(fields)
-        self.set_template(template)
-        self.output = ''
-
-    def set_markup(self, markup):
-        """ Set the markup we're parsing."""
         self.markup = markup
-
-    def set_fields(self, fields):
-        """ Set the fields we're parsing out of each XML object item."""
         self.fields = fields
-
-    def set_template(self, template):
-        """ Set the template file we're using for templating the XML output.
-        The fieldnames of the template should match the XML field and attribute
-        names. """
         self.template = template
+        self.output = ''
 
     def add_result(self, result):
         """ Append an item to self.results. """
